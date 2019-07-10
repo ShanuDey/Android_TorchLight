@@ -18,7 +18,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 public class MainActivity extends AppCompatActivity {
     private SwitchMaterial switchMaterial,switchMaterial_front;
     private TextView tv_info,tv_info_front;
-    private boolean isOn,hasFlash;
+    private boolean hasFlash;
     private String backCameraId,frontCameraId="";
 
     @Override
@@ -32,11 +32,9 @@ public class MainActivity extends AppCompatActivity {
         tv_info = findViewById(R.id.tv_info);
         tv_info_front = findViewById(R.id.tv_info_front);
 
-        //set deafult value
-        isOn = false;
+        //get Flash
         hasFlash = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
-        //logic
         if(hasFlash){
             final CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
             try {

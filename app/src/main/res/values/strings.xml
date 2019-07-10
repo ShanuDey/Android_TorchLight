@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TorchLight</string>
+    <string name="tile_label">TorchLight</string>
+    <string name="service_active">active</string>
+    <string name="on">ON</string>
 </resources>
