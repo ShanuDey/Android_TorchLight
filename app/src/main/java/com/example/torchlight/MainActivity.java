@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private SwitchMaterial switchMaterial;
     private TextView tv_info;
     private boolean isOn,hasFlash;
-    private String cameraId;
+    private String backCameraId,frontCameraId="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
         if(hasFlash){
             final CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
             try {
-                cameraId = cameraManager.getCameraIdList()[0];
+                String[] cameraIDs = cameraManager.getCameraIdList();
+                backCameraId = cameraIDs[0];
+                if(cameraIDs.length>=2){
+                    frontCameraId = cameraIDs[1];
+                }
+
             } catch (CameraAccessException e) {
                 //e.printStackTrace();
                 Log.v("shanu",e.getMessage());
@@ -46,20 +51,25 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+
             //set listner
             switchMaterial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                     try {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            cameraManager.setTorchMode(cameraId,isChecked);
+                            cameraManager.setTorchMode(backCameraId,isChecked);
+                            cameraManager.setTorchMode(frontCameraId,isChecked);
                         }
                     } catch (CameraAccessException e) {
                         //e.printStackTrace();
                         Log.v("shanu",e.getMessage());
                         Toast.makeText(MainActivity.this, "No Camera Available", Toast.LENGTH_SHORT).show();
                     }
+                    if(isChecked)
+                        tv_info.setText("ON");
+                    else
+                        tv_info.setText("OFF");
                 }
             });
 
