@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
-    private SwitchMaterial switchMaterial;
-    private TextView tv_info;
+    private SwitchMaterial switchMaterial,switchMaterial_front;
+    private TextView tv_info,tv_info_front;
     private boolean isOn,hasFlash;
     private String backCameraId,frontCameraId="";
 
@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
         //cast
         switchMaterial = findViewById(R.id.id_switch);
+        switchMaterial_front = findViewById(R.id.id_switch_front);
         tv_info = findViewById(R.id.tv_info);
+        tv_info_front = findViewById(R.id.tv_info_front);
 
         //set deafult value
         isOn = false;
@@ -59,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             cameraManager.setTorchMode(backCameraId,isChecked);
-                            cameraManager.setTorchMode(frontCameraId,isChecked);
                         }
                     } catch (CameraAccessException e) {
                         //e.printStackTrace();
@@ -70,6 +71,25 @@ public class MainActivity extends AppCompatActivity {
                         tv_info.setText("ON");
                     else
                         tv_info.setText("OFF");
+                }
+            });
+
+            switchMaterial_front.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            cameraManager.setTorchMode(frontCameraId,isChecked);
+                        }
+                    } catch (CameraAccessException e) {
+                        //e.printStackTrace();
+                        Log.v("shanu",e.getMessage());
+                        Toast.makeText(MainActivity.this, "No Camera Available", Toast.LENGTH_SHORT).show();
+                    }
+                    if(isChecked)
+                        tv_info_front.setText("ON");
+                    else
+                        tv_info_front.setText("OFF");
                 }
             });
 
