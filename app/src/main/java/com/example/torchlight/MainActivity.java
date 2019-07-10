@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
-    private SwitchMaterial switchMaterial,switchMaterial_front;
+    private SwitchMaterial switchMaterial,switchMaterial_front,switchMaterial_theme;
     private TextView tv_info,tv_info_front;
     private boolean hasFlash;
     private String backCameraId,frontCameraId="";
@@ -24,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_dark);
 
         //cast
         switchMaterial = findViewById(R.id.id_switch);
         switchMaterial_front = findViewById(R.id.id_switch_front);
+        switchMaterial_theme = findViewById(R.id.id_switch_theme);
         tv_info = findViewById(R.id.tv_info);
         tv_info_front = findViewById(R.id.tv_info_front);
 
@@ -95,5 +96,21 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, "Flash Light is not present", Toast.LENGTH_SHORT).show();
         }
+
+//        switchMaterial_theme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    setContentView(R.layout.activity_main_dark);
+//                    //setTheme(R.style.AppTheme);
+//                }
+//                else{
+//                    setContentView(R.layout.activity_main);
+//                    //setTheme(R.style.AppThemeLight);
+//
+//                }
+//            }
+//        });
+
     }
 }
