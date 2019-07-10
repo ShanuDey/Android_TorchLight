@@ -63,7 +63,7 @@ public class TorchLight extends TileService {
                 //e.printStackTrace();
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(this, "off", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "off", Toast.LENGTH_SHORT).show();
 
             newLabel = String.format(Locale.US,
                     "%s %s",
@@ -78,7 +78,7 @@ public class TorchLight extends TileService {
 
         } else {
 
-            Toast.makeText(this, "on", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "on", Toast.LENGTH_SHORT).show();
 
             try {
                 cameraManager.setTorchMode(cameraId,false);
@@ -130,4 +130,28 @@ public class TorchLight extends TileService {
         return isActive;
     }
 
+    @Override
+    public void onTileAdded() {
+        super.onTileAdded();
+
+        Tile tile = this.getQsTile();
+        String newLabel = String.format(Locale.US,
+                "%s %s",
+                getString(R.string.tile_label),
+                "OFF");
+
+        Icon newIcon =
+                Icon.createWithResource(getApplicationContext(),
+                        R.drawable.ic_torchlight);
+
+        int newState = Tile.STATE_INACTIVE;
+
+        tile.setLabel(newLabel);
+        tile.setIcon(newIcon);
+        tile.setState(newState);
+
+        // Need to call updateTile for the tile to pick up changes.
+        tile.updateTile();
+
+    }
 }
