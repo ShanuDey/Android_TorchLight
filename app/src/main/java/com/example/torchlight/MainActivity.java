@@ -96,21 +96,5 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, "Flash Light is not present", Toast.LENGTH_SHORT).show();
         }
-
-//        switchMaterial_theme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(isChecked){
-//                    setContentView(R.layout.activity_main_dark);
-//                    //setTheme(R.style.AppTheme);
-//                }
-//                else{
-//                    setContentView(R.layout.activity_main);
-//                    //setTheme(R.style.AppThemeLight);
-//
-//                }
-//            }
-//        });
-
     }
 }
