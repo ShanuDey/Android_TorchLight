@@ -4,4 +4,5 @@
     <string name="service_active">active</string>
     <string name="on">ON</string>
     <string name="front_light_title">FrontLight</string>
+    <string name="note_qs_tile">Note: Quick Settings Tile available. Configure Quick Settings tile from notification panel settings.</string>
 </resources>

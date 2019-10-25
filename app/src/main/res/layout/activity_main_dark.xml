@@ -77,30 +77,21 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Theme -->
-    <!--LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Dark Theme"
-            android:textSize="20sp"
+            android:text="@string/note_qs_tile"
+            android:textSize="15sp"
             android:layout_margin="20sp"
             />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:layout_width="wrap_content"
-            android:padding="20sp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:id="@+id/id_switch_theme"
-            />
-    </LinearLayout-->
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
