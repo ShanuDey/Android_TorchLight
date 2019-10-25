@@ -27,7 +27,6 @@ public class TorchLight extends TileService {
     public void onClick() {
         super.onClick();
 
-
         hasCamera =  getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
         if(hasCamera)
@@ -46,6 +45,7 @@ public class TorchLight extends TileService {
         } catch (CameraAccessException e) {
             //e.printStackTrace();
             Log.v("shanu",e.getMessage());
+            Toast.makeText(this, "Somethings went wrong", Toast.LENGTH_SHORT).show();
         }
 
 
