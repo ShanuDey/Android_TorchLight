@@ -3,4 +3,5 @@
     <string name="tile_label">TorchLight</string>
     <string name="service_active">active</string>
     <string name="on">ON</string>
+    <string name="front_light_title">FrontLight</string>
 </resources>
