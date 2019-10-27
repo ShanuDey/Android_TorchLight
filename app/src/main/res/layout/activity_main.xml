@@ -11,100 +11,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:layout_weight="9"
         android:gravity="center"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Rear Flash"
-                android:textColor="#000"
-                android:textSize="20sp"
-                android:layout_margin="20sp"
-                />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:layout_width="wrap_content"
-                android:padding="20sp"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:id="@+id/id_switch"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_info"
-                android:text="OFF"
-                android:textSize="20sp"
-                android:layout_margin="20sp"
-                android:textColor="#000"
-                />
-        </LinearLayout>
+        android:orientation="vertical">
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/ll_front_flash"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:layout_margin="30sp"
             >
-            <TextView
+            <include
+                layout="@layout/font_flash_logo"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Front Flash"
-                android:textColor="#000"
-                android:textSize="20sp"
-                android:layout_margin="20sp"
-                />
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+        <LinearLayout
+            android:id="@+id/ll_rear_flash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:gravity="center">
+            <include
+                layout="@layout/rear_flash_logo"
                 android:layout_width="wrap_content"
-                android:padding="20sp"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:id="@+id/id_switch_front"
-                />
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_info_front"
-                android:text="OFF"
-                android:textSize="20sp"
                 android:layout_margin="20sp"
-                android:textColor="#000"
+                android:layout_height="wrap_content"
+                android:text="@string/note_qs_tile"
                 />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:gravity="center"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Dark Theme"
-            android:textSize="20sp"
-            android:layout_margin="20sp"
-            />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:layout_width="wrap_content"
-            android:padding="20sp"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:id="@+id/id_switch_theme"
-            />
     </LinearLayout>
 
     <LinearLayout

@@ -1,7 +1,5 @@
 package com.example.torchlight;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,17 +7,17 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.CompoundButton;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private SwitchMaterial switchMaterial,switchMaterial_front,switchMaterial_theme;
-    private TextView tv_info,tv_info_front;
+    private LinearLayout front_flash_layout, rear_flash_layout;
+    private ImageView rear_circle, front_circle;
     private boolean hasFlash;
     private String backCameraId,frontCameraId="";
 
@@ -29,17 +27,18 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor shrdPrefEditor;
 
+    private Boolean rear_flash_state=false, front_flash_state=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_dark);
+        setContentView(R.layout.activity_main);
 
         //cast
-        switchMaterial = findViewById(R.id.id_switch);
-        switchMaterial_front = findViewById(R.id.id_switch_front);
-        switchMaterial_theme = findViewById(R.id.id_switch_theme);
-        tv_info = findViewById(R.id.tv_info);
-        tv_info_front = findViewById(R.id.tv_info_front);
+        front_flash_layout = findViewById(R.id.ll_front_flash);
+        rear_flash_layout = findViewById(R.id.ll_rear_flash);
+        rear_circle = findViewById(R.id.rear_circle);
+        front_circle = findViewById(R.id.front_circle);
 
         //get Flash
         hasFlash = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
@@ -64,14 +63,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             //set listner
-            switchMaterial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            rear_flash_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onClick(View view) {
                     try {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            cameraManager.setTorchMode(backCameraId,isChecked);
+                            rear_flash_state = !rear_flash_state;
+                            cameraManager.setTorchMode(backCameraId,rear_flash_state);
 
-                            shrdPrefEditor.putBoolean(KEY_REAR_FLASH_MODE, isChecked);
+                            shrdPrefEditor.putBoolean(KEY_REAR_FLASH_MODE, rear_flash_state);
                             shrdPrefEditor.apply();
                         }
                     } catch (CameraAccessException e) {
@@ -79,21 +79,20 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("shanu",e.getMessage());
                         Toast.makeText(MainActivity.this, "No Camera Available", Toast.LENGTH_SHORT).show();
                     }
-                    if(isChecked)
-                        tv_info.setText("ON");
-                    else
-                        tv_info.setText("OFF");
+                    rear_circle.setImageResource(rear_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
+
                 }
             });
 
-            switchMaterial_front.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            front_flash_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onClick(View view) {
                     try {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            cameraManager.setTorchMode(frontCameraId,isChecked);
+                            front_flash_state = !front_flash_state;
+                            cameraManager.setTorchMode(frontCameraId,front_flash_state);
 
-                            shrdPrefEditor.putBoolean(KEY_FRONT_FLASH_MODE, isChecked);
+                            shrdPrefEditor.putBoolean(KEY_FRONT_FLASH_MODE, front_flash_state);
                             shrdPrefEditor.apply();
                         }
                     } catch (CameraAccessException e) {
@@ -101,12 +100,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("shanu",e.getMessage());
                         Toast.makeText(MainActivity.this, "No Camera Available", Toast.LENGTH_SHORT).show();
                     }
-                    if(isChecked)
-                        tv_info_front.setText("ON");
-                    else
-                        tv_info_front.setText("OFF");
+
+                    front_circle.setImageResource(front_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
+
                 }
             });
+
 
         }
         else{
@@ -118,7 +117,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        switchMaterial.setChecked(sharedPreferences.getBoolean(KEY_REAR_FLASH_MODE, false));
-        switchMaterial_front.setChecked(sharedPreferences.getBoolean(KEY_FRONT_FLASH_MODE, false));
+        rear_flash_state = sharedPreferences.getBoolean(KEY_REAR_FLASH_MODE,false);
+        front_flash_state = sharedPreferences.getBoolean(KEY_FRONT_FLASH_MODE, false);
+
+        rear_circle.setImageResource(rear_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
+        front_circle.setImageResource(front_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
     }
 }
