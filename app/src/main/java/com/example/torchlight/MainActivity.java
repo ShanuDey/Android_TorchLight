@@ -3,11 +3,13 @@ package com.example.torchlight;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -20,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_info,tv_info_front;
     private boolean hasFlash;
     private String backCameraId,frontCameraId="";
+
+    public static final String SHRD_PRF_FLASH_STATE = "ShrdFlashState";
+    public static final String KEY_REAR_FLASH_MODE = "RearFlashMode";
+    public static final String KEY_FRONT_FLASH_MODE = "FrontFlashMode";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor shrdPrefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         //get Flash
         hasFlash = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
+        //Shared Preferences
+        sharedPreferences = getSharedPreferences(SHRD_PRF_FLASH_STATE, MODE_PRIVATE);
+        shrdPrefEditor = sharedPreferences.edit();
+
         if(hasFlash){
             final CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
             try {
@@ -51,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "No Camera available", Toast.LENGTH_SHORT).show();
             }
 
-
-
             //set listner
             switchMaterial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -60,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             cameraManager.setTorchMode(backCameraId,isChecked);
+
+                            shrdPrefEditor.putBoolean(KEY_REAR_FLASH_MODE, isChecked);
+                            shrdPrefEditor.apply();
                         }
                     } catch (CameraAccessException e) {
                         //e.printStackTrace();
@@ -79,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             cameraManager.setTorchMode(frontCameraId,isChecked);
+
+                            shrdPrefEditor.putBoolean(KEY_FRONT_FLASH_MODE, isChecked);
+                            shrdPrefEditor.apply();
                         }
                     } catch (CameraAccessException e) {
                         //e.printStackTrace();
@@ -96,5 +112,13 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, "Flash Light is not present", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        switchMaterial.setChecked(sharedPreferences.getBoolean(KEY_REAR_FLASH_MODE, false));
+        switchMaterial_front.setChecked(sharedPreferences.getBoolean(KEY_FRONT_FLASH_MODE, false));
     }
 }
