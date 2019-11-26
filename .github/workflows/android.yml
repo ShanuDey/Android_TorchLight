@@ -17,9 +17,9 @@ jobs:
       run: ./gradlew build
     - name: Build Debug APK
       run: ./gradlew assembleDebug
-    #- name: Releasing using Hub
-    #  uses: ShanuDey/Android_TorchLight@master
-    #  env:
-    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   APP_FOLDER: app
-    #   RELEASE_TITLE: New Build
+    - name: Releasing using Hub
+      uses: ShanuDey/Android_TorchLight@master
+      env:
+       GITHUB_TOKEN: ${{ secrets.TOKEN }}
+       APP_FOLDER: app
+       RELEASE_TITLE: New Build
