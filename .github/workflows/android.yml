@@ -26,3 +26,10 @@ jobs:
        GITHUB_TOKEN: ${{ secrets.TOKEN }}
        APP_FOLDER: app
        RELEASE_TITLE: TorchLight
+    - name: Telegram Notify
+      uses: appleboy/telegram-action@0.0.3
+      with:
+       to: ${{ secrets.TELEGRAM_TO }}
+       token: ${{ secrets.TELEGRAM_TOKEN }}
+       message: Android TorchLight 
+       document: ./app/build/outputs/apk/debug/*.apk
