@@ -18,7 +18,7 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug
     - name: Releasing using Hub
-      uses: ShanuDey/Android_TorchLight@ci
+      uses: ShanuDey/Android_TorchLight@master
       env:
        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        APP_FOLDER: app
