@@ -20,12 +20,12 @@ jobs:
       run: ./gradlew build
     - name: Build Debug APK
       run: ./gradlew assembleDebug
-    - name: Debug APK Publisher
-      uses: ShaunLWM/action-release-debugapk@0.0.5
-      env:
-       GITHUB_TOKEN: ${{ secrets.TOKEN }}
-       APP_FOLDER: app
-       RELEASE_TITLE: TorchLight
+#     - name: Debug APK Publisher
+#       uses: ShaunLWM/action-release-debugapk@0.0.5
+#       env:
+#        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+#        APP_FOLDER: app
+#        RELEASE_TITLE: TorchLight
     - name: Telegram Notify
       uses: appleboy/telegram-action@0.0.3
       with:
