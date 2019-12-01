@@ -29,15 +29,15 @@ jobs:
 #       run: curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument -F chat_id=${{ secrets.TELEGRAM_TO }} -F document="@$(pwd)/app/build/outputs/apk/debug/*.apk" -F caption="Android TorchLigh App."
     - name: check path
       run: |
-       ls $(pwd)/app/build/outputs/apk/debug/
-       debugAPK=$(pwd)/app/build/outputs/apk/debug/*.apk
+       cd $(pwd)/app/build/outputs/apk/debug/
+       debugAPK=$(echo *.apk)
        echo "Debug APK = "$debugAPK
        mv -v $(pwd)/app/build/outputs/apk/debug/*.apk debug.apk
        curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument -F chat_id=${{ secrets.TELEGRAM_TO }} -F document="@$(pwd)/debug.apk" -F caption="Android TorchLigh App."
     - name: Generate Signed APK
       uses: r0adkll/sign-android-release@v1
       with:
-         releaseDirectory: app/build/outputs/apk/release
+         releaseDirectory: /app/build/outputs/apk/release
          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
          alias: ${{ secrets.ALIAS }}
          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
