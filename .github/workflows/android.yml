@@ -28,4 +28,7 @@ jobs:
     - name: Upload debug Apk to Telegram
       run: curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument -F chat_id=${{ secrets.TELEGRAM_TO }} -F document="@$(pwd)/app/build/outputs/apk/debug/$(*.apk)" -F caption="Android TorchLigh App."
     - name: check path
-      run: echo $(pwd)/app/build/outputs/apk/debug/$(*.apk)  
+      run: |
+       ls $(pwd)/app/build/outputs/apk/debug/
+       ls $(pwd)/app/build/outputs
+       echo $(pwd)/app/build/outputs/apk/debug/$(*.apk) 
