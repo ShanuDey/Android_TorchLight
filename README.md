@@ -11,4 +11,5 @@ Android TorchLight Application for controlling rear and front flash. It gives a 
 
 ### Download : **[Click here](https://github.com/ShanuDey/Android_TorchLight/releases)**
 
-#### by @ShanuDey
+## Donation
+<a href="https://www.buymeacoffee.com/ShanuDey" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" /></a>
