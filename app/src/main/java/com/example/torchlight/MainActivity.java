@@ -8,12 +8,18 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity {
     private LinearLayout front_flash_layout, rear_flash_layout;
@@ -33,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //cast
         front_flash_layout = findViewById(R.id.ll_front_flash);
@@ -122,5 +130,33 @@ public class MainActivity extends AppCompatActivity {
 
         rear_circle.setImageResource(rear_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
         front_circle.setImageResource(front_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_qstile) {
+            AlertDialog ad_qstile = new MaterialAlertDialogBuilder(this)
+                    .setTitle("QS tile")
+                    .setMessage("Quick Settings tile is available for front and rear flashlight. Add them from notification bar settings of this device")
+                    .setCancelable(true)
+                    .create();
+            ad_qstile.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

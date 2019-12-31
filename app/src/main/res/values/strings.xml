@@ -4,4 +4,7 @@
     <string name="service_active">active</string>
     <string name="on">ON</string>
     <string name="front_light_title">FrontLight</string>
+
+    <!-- Menu Options -->
+    <string name="action_qstile">QS Tile</string>
 </resources>
