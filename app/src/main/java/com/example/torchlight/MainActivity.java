@@ -7,12 +7,14 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -147,16 +149,33 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_qstile) {
-            AlertDialog ad_qstile = new MaterialAlertDialogBuilder(this)
-                    .setTitle("QS tile")
-                    .setMessage("Quick Settings tile is available for front and rear flashlight. Add them from notification bar settings of this device")
-                    .setCancelable(true)
-                    .create();
-            ad_qstile.show();
-            return true;
-        }
+        switch(id){
+            case R.id.action_qstile:
+                AlertDialog ad_qstile = new MaterialAlertDialogBuilder(this)
+                        .setTitle("QS tile")
+                        .setMessage("Quick Settings tile is available for front and rear flashlight. Add them from notification bar settings of this device")
+                        .setCancelable(true)
+                        .create();
+                ad_qstile.show();
+                return true;
+            case R.id.action_about:
 
+                AlertDialog ad_About = new MaterialAlertDialogBuilder(this)
+                        .setTitle("About")
+                        .setView(R.layout.view_about)
+                        .setCancelable(true)
+                        .create();
+                ad_About.show();
+
+                // Make the textview clickable. Must be called after show()
+                TextView tv_source = ad_About.findViewById(R.id.tv_source);
+                tv_source.setMovementMethod(LinkMovementMethod.getInstance());
+
+                ((TextView) ad_About.findViewById(R.id.tv_author)).setMovementMethod(LinkMovementMethod.getInstance());
+                ((TextView) ad_About.findViewById(R.id.tv_donation)).setMovementMethod(LinkMovementMethod.getInstance());
+
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

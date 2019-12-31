@@ -7,4 +7,9 @@
 
     <!-- Menu Options -->
     <string name="action_qstile">QS Tile</string>
+    <string name="action_about">About</string>
+    <string name="string_donation">Donation: <a href="https://www.buymeacoffee.com/ShanuDey">Buy me a coffee</a></string>
+    <string name="string_source">Source: <a href="https://github.com/ShanuDey/Android_TorchLight">Android TorchLight</a></string>
+    <string name="string_author">Author: <a href="https://github.com/ShanuDey">Shanu Dey</a></string>
+
 </resources>
