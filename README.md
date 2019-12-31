@@ -1,4 +1,6 @@
-# TorchLight
+# TorchLight 
+![](https://github.com/ShanuDey/Android_TorchLight/workflows/Android%20CI/badge.svg)
+
 Android TorchLight Application for controlling rear and front flash. It gives a dynamic theme UI which is synced with system theme. Rear and front flash both can be controlled using Quick Settings Tile. 
 
 ## Features
@@ -9,4 +11,4 @@ Android TorchLight Application for controlling rear and front flash. It gives a 
 
 ### Download : **[Click here](https://github.com/ShanuDey/Android_TorchLight/releases)**
 
-#### Made by @ShanuDey
+#### by @ShanuDey
