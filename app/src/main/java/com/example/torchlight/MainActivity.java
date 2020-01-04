@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
 public class MainActivity extends AppCompatActivity {
-    private LinearLayout front_flash_layout, rear_flash_layout;
-    private ImageView rear_circle, front_circle;
+    private ShineButton btn_front_flash, btn_rear_flash;
     private boolean hasFlash;
     private String backCameraId,frontCameraId="";
 
@@ -45,10 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //cast
-        front_flash_layout = findViewById(R.id.ll_front_flash);
-        rear_flash_layout = findViewById(R.id.ll_rear_flash);
-        rear_circle = findViewById(R.id.rear_circle);
-        front_circle = findViewById(R.id.front_circle);
+        btn_front_flash = findViewById(R.id.btn_front_flash);
+        btn_rear_flash = findViewById(R.id.btn_rear_flash);
+
 
         //get Flash
         hasFlash = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             //set listner
-            rear_flash_layout.setOnClickListener(new View.OnClickListener() {
+            btn_rear_flash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
@@ -89,12 +86,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("shanu",e.getMessage());
                         Toast.makeText(MainActivity.this, "No Camera Available", Toast.LENGTH_SHORT).show();
                     }
-                    rear_circle.setImageResource(rear_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
 
                 }
             });
 
-            front_flash_layout.setOnClickListener(new View.OnClickListener() {
+            btn_front_flash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
@@ -110,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("shanu",e.getMessage());
                         Toast.makeText(MainActivity.this, "No Camera Available", Toast.LENGTH_SHORT).show();
                     }
-
-                    front_circle.setImageResource(front_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
 
                 }
             });
@@ -130,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
         rear_flash_state = sharedPreferences.getBoolean(KEY_REAR_FLASH_MODE,false);
         front_flash_state = sharedPreferences.getBoolean(KEY_FRONT_FLASH_MODE, false);
 
-        rear_circle.setImageResource(rear_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
-        front_circle.setImageResource(front_flash_state? R.drawable.circle_image_on: R.drawable.circle_image_off);
+        btn_front_flash.enableFlashing(front_flash_state);
+        btn_rear_flash.enableFlashing(rear_flash_state);
     }
 
     @Override
